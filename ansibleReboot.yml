@@ -6,5 +6,5 @@
      - name: reboot the ansible host
        ansible.builtin.reboot:
          msg: "A reboot action triggered  by ansible"
-         pre_reboot_delay: 10
+         pre_reboot_delay: 20
 
