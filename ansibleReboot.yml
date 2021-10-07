@@ -7,4 +7,5 @@
        ansible.builtin.reboot:
          msg: "A reboot action triggered  by ansible"
          pre_reboot_delay: 20
+         version: 0.0.1
 
