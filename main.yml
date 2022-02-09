@@ -1,3 +1,26 @@
-[ac]
-slave1 ansible_ssh_host=192.168.133.1
+---
+  - name: Patch the server and Reboot
+    hosts: 192.168.1.3
+    tasks:
+      - name: Reboot the server
+        tags: reboot
+        become: yes
+        become_user: root
+        command: /sbin/reboot
+        async: 1
+        poll: 0
 
+      - name: Wait for server to restart
+        local_action:
+          module: wait_for
+            host=192.168.1.3
+            search_regex=OpenSSH
+            port=22
+            delay=1
+            timeout=300
+
+      - name: Check the uptime post reboot
+        shell: uptime
+        register: UPTIME_POST_REBOOT
+
+      - debug: msg={{UPTIME_POST_REBOOT.stdout}}
