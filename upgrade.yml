@@ -1,0 +1,9 @@
+---
+  - name: Patch the server and Reboot
+    hosts: localhost
+    tasks:
+      - name: Upgrade all yum packages ansible.
+        become: yes
+        become_user: root
+        tags: Patch
+        yum: name=* state=latest
